@@ -1,29 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @InjectRepository(User)
-        private usersRepository: Repository<User>,
-    ) { }
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
-    create(user: Partial<User>) {
-        const newUser = this.usersRepository.create(user);
-        return this.usersRepository.save(newUser);
+  async findAll(): Promise<UserResponseDto[]> {
+    const users = await this.usersRepository.find();
+    return users.map((user) => ({
+      uid: user.uid,
+      username: user.username,
+      email: user.email,
+    }));
+  }
+
+  async findOneByUid(uid: string): Promise<UserResponseDto> {
+    const user = await this.usersRepository.findOne({ where: { uid } });
+
+    if (!user) {
+      throw new NotFoundException(`User with uid "${uid}" not found`);
     }
 
-    findAll() {
-        return this.usersRepository.find();
-    }
-
-    findOneByEmail(email: string) {
-        return this.usersRepository.findOne({ where: { email } });
-    }
-
-    findOneByUid(uid: string) {
-        return this.usersRepository.findOne({ where: { uid } });
-    }
+    return {
+      uid: user.uid,
+      username: user.username,
+      email: user.email,
+    };
+  }
 }
