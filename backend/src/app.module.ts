@@ -21,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
         database: config.get<string>('POSTGRES_DATABASE'),
         autoLoadEntities: true,
         synchronize: true, // dev only
+        ssl: { rejectUnauthorized: false }
       }),
     }),
 
