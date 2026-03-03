@@ -14,11 +14,11 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: config.get<string>('POSTGRES_HOST'),
-        port: config.get<number>('POSTGRES_PORT'),
-        username: config.get<string>('POSTGRES_USER'),
-        password: config.get<string>('POSTGRES_PASSWORD'),
-        database: config.get<string>('POSTGRES_DATABASE'),
+        host: config.get<string>('PGHOST'),
+        port: config.get<number>('PGPORT') || 5432,
+        username: config.get<string>('PGUSER'),
+        password: config.get<string>('PGPASSWORD'),
+        database: config.get<string>('PGDATABASE'),
         autoLoadEntities: true,
         synchronize: true, // dev only
         ssl: { rejectUnauthorized: false }
