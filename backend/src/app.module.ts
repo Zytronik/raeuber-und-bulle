@@ -14,11 +14,11 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: config.get<string>('DB_HOST'),
-        port: config.get<number>('DB_PORT'),
-        username: config.get<string>('DB_USERNAME'),
-        password: config.get<string>('DB_PASSWORD'),
-        database: config.get<string>('DB_NAME'),
+        host: config.get<string>('POSTGRES_HOST'),
+        port: config.get<number>('POSTGRES_PORT'),
+        username: config.get<string>('POSTGRES_USER'),
+        password: config.get<string>('POSTGRES_PASSWORD'),
+        database: config.get<string>('POSTGRES_DATABASE'),
         autoLoadEntities: true,
         synchronize: true, // dev only
       }),
@@ -28,4 +28,4 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
