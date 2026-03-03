@@ -5,8 +5,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../user/user.entity';
 import { LoginDto } from './dto/login.dto';
-import { UserRequestDto } from 'src/user/dto/user-request.dto';
-import { UserResponseDto } from 'src/user/dto/user-response.dto';
+import { UserRequestDto } from '../user/dto/user-request.dto';
+import { UserResponseDto } from '../user/dto/user-response.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
 import { JwtPayloadDto } from './dto/jwt-payload.dto';
 
@@ -16,7 +16,7 @@ export class AuthService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async register(userDto: UserRequestDto): Promise<UserResponseDto> {
     const existing = await this.usersRepository.findOne({

@@ -3,11 +3,11 @@ import { AuthService } from './auth.service';
 import { UserRequestDto } from '../user/dto/user-request.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
-import { UserResponseDto } from 'src/user/dto/user-response.dto';
+import { UserResponseDto } from '../user/dto/user-response.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('register')
   async register(@Body() userDto: UserRequestDto): Promise<UserResponseDto> {
