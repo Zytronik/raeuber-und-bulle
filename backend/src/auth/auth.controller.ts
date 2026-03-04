@@ -7,7 +7,7 @@ import { UserResponseDto } from '../user/dto/user-response.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Post('register')
   async register(@Body() userDto: UserRequestDto): Promise<UserResponseDto> {

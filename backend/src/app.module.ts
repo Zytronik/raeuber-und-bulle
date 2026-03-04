@@ -20,8 +20,11 @@ import { AuthModule } from './auth/auth.module';
         password: config.get<string>('PGPASSWORD'),
         database: config.get<string>('PGDATABASE'),
         autoLoadEntities: true,
-        synchronize: true, // dev only
-        ssl: { rejectUnauthorized: false }
+        synchronize: config.get<string>('PGDATABASE') === 'dev',
+        ssl:
+          config.get<string>('PGDATABASE') === 'dev'
+            ? { rejectUnauthorized: false }
+            : false,
       }),
     }),
 
@@ -29,4 +32,4 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

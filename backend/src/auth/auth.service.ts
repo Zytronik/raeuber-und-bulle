@@ -16,7 +16,7 @@ export class AuthService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     private jwtService: JwtService,
-  ) { }
+  ) {}
 
   async register(userDto: UserRequestDto): Promise<UserResponseDto> {
     const existing = await this.usersRepository.findOne({
